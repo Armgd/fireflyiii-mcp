@@ -320,7 +320,7 @@ requires-dist = [
     { name = "fastmcp", specifier = ">=2.10.5" },
     { name = "python-semantic-release", specifier = ">=10.2.0" },
     { name = "pyyaml", specifier = ">=6.0.2" },
-    { name = "uv", marker = "extra == 'build'", specifier = "~=0.7.12" },
+    { name = "uv", marker = "extra == 'build'", specifier = "~=0.7.21" },
 ]
 provides-extras = ["build"]
 

@@ -10,7 +10,7 @@ dependencies = [
     "pyyaml>=6.0.2",
 ]
 [project.optional-dependencies]
-build = ["uv ~= 0.7.12"]
+build = ["uv ~= 0.7.21"]
 
 [tool.semantic_release]
 version_toml = ["pyproject.toml:project.version"]
