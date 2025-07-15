@@ -16,6 +16,7 @@ build = ["uv ~= 0.7.12"]
 version_toml = ["pyproject.toml:project.version"]
 assets = []
 build_command = """
+    python -m pip install -e '.[build]'
     uv lock --upgrade-package "$PACKAGE_NAME"
     git add uv.lock
     uv build
