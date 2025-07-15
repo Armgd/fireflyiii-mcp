@@ -1,0 +1,17 @@
+name: SemVer Release
+on:
+    push:
+        branches:
+            - main
+jobs:
+    release:
+        permissions:
+            contents: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code 
+              uses: actions/checkout@v4
+
+            - name: Python Semantic Release
+              uses: python-semantic-release/python-semantic-release@v10.2.0
+
