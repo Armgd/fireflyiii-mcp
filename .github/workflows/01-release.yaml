@@ -1,4 +1,4 @@
-name: SemVer Release
+name: 01 - Release
 on:
     push:
         branches:
@@ -83,4 +83,3 @@ jobs:
               with:
                 github_token: ${{ secrets.GITHUB_TOKEN }}
                 tag: ${{ steps.release.outputs.tag }}
-

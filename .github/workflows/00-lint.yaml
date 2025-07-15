@@ -1,4 +1,4 @@
-name: lint with Ruff
+name: 00 - Lint
 permissions:
     contents: read # Default, but good to be explicit
 
