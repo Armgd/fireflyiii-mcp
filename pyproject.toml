@@ -33,6 +33,11 @@ tag_format = "v{version}"
 [semantic_release.remote.token]
 env = "GH_TOKEN"
 
+[dependency-groups]
+dev = [
+    "ruff>=0.12.3",
+]
+
 [tool.semantic_release.branches.main]
 match = "(main|master)"
 prerelease_token = "rc"
