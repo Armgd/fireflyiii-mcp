@@ -2,6 +2,30 @@
 
 <!-- version list -->
 
+## v1.2.0 (2025-08-07)
+
+### Chores
+
+- **build.yaml**: Refactor GitHub Actions workflow for better tagging conventions and organization
+  ([`6b8a9e5`](https://github.com/Armgd/fireflyiii-mcp/commit/6b8a9e5539a77838d156bb5120223c0c56bd7ab8))
+
+- **ci**: Update Docker image name in GitHub Actions workflow to reflect correct repository name for
+  building process
+  ([`a71e5ca`](https://github.com/Armgd/fireflyiii-mcp/commit/a71e5ca38e222b02b85afa12b6b08ea7416dd9f3))
+
+### Continuous Integration
+
+- **workflow**: Enhance Docker build workflow for better tag management and conditional DockerHub
+  login
+  ([`cf54f11`](https://github.com/Armgd/fireflyiii-mcp/commit/cf54f11eaa4359f14bf5081431ca7d9466289dcc))
+
+### Features
+
+- **gemini**: Add Gemini CLI and related workflows for automated issue triage and PR review
+  processes to improve repository maintenance efficiency.
+  ([`841e0d9`](https://github.com/Armgd/fireflyiii-mcp/commit/841e0d957512be99b672ed27e675481ebf28a882))
+
+
 ## v1.1.0 (2025-07-15)
 
 ### Bug Fixes
