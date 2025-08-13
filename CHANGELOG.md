@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.3.0 (2025-08-13)
+
+### Features
+
+- Enhance GitHub Actions workflow to include Docker Buildx setup and configuration validation
+  ([`58aea99`](https://github.com/Armgd/fireflyiii-mcp/commit/58aea99e49f501ec954cbee7f22b8514b6b900e3))
+
+
 ## v1.2.0 (2025-08-07)
 
 ### Chores
