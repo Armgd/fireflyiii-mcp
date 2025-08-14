@@ -2,6 +2,29 @@
 
 <!-- version list -->
 
+## v1.4.0 (2025-08-14)
+
+### Chores
+
+- **dependencies**: Update fastmcp dependency to version 2.11 for improvements and bug fixes
+  ([`a49c430`](https://github.com/Armgd/fireflyiii-mcp/commit/a49c430211074b9f982da736cf9b23c38668d22e))
+
+### Features
+
+- **.env.example**: Add example environment file to guide configuration
+  ([`8d0f14e`](https://github.com/Armgd/fireflyiii-mcp/commit/8d0f14e5e62a22704689ab97e4a5d73875cb5531))
+
+- **Dockerfile**: Change CMD to use uvicorn for better performance and concurrency in serving the
+  application
+  ([`ea96a48`](https://github.com/Armgd/fireflyiii-mcp/commit/ea96a48cb4aa7112a58e73061af13d84e58b71d3))
+
+- **docs**: Add GEMINI.md file to provide project overview and setup instructions for the MCP server
+  ([`b92b7c0`](https://github.com/Armgd/fireflyiii-mcp/commit/b92b7c0c7e638b88f4b533d2f8950054dfd07243))
+
+- **main.py**: Add health check endpoint to verify server status
+  ([`309611b`](https://github.com/Armgd/fireflyiii-mcp/commit/309611b1f6becf5a33874934245d6a699269384c))
+
+
 ## v1.3.0 (2025-08-13)
 
 ### Features
