@@ -1,10 +1,13 @@
+
 import os
 import yaml
-import asyncio
 import httpx
+from dotenv import load_dotenv
 from fastmcp import FastMCP
-from fastmcp.server.openapi import RouteMap, MCPType
+from fastmcp.experimental.server.openapi import RouteMap, MCPType
+from starlette.responses import JSONResponse
 
+load_dotenv()
 with open("./firefly-iii-openapi.yaml", "r") as f:
     openapi_spec = yaml.safe_load(f)
 
@@ -14,22 +17,22 @@ client = httpx.AsyncClient(
 )
 
 semantic_maps = [
-    RouteMap(methods="*", pattern=r"^/v1/about.*$", mcp_type=MCPType.EXCLUDE),
-    RouteMap(methods="*", pattern=r"^/v1/autocomplete.*$", mcp_type=MCPType.EXCLUDE),
-    RouteMap(methods="*", pattern=r"^/v1/configuration.*$", mcp_type=MCPType.EXCLUDE),
-    RouteMap(methods="*", pattern=r"^/v1/preferences.*$", mcp_type=MCPType.EXCLUDE),
-    RouteMap(methods="*", pattern=r"^/v1/webhooks.*$", mcp_type=MCPType.EXCLUDE),
-    RouteMap(methods="*", pattern=r"^/v1/user-groups.*$", mcp_type=MCPType.EXCLUDE),
-    RouteMap(methods="*", pattern=r"^/v1/users.*$", mcp_type=MCPType.EXCLUDE),
-    RouteMap(methods="*", pattern=r"^/v1/tags.*$", mcp_type=MCPType.EXCLUDE),
-    RouteMap(methods="*", pattern=r"^/v1/search.*$", mcp_type=MCPType.EXCLUDE),
-    RouteMap(methods="*", pattern=r"^/v1/rules.*$", mcp_type=MCPType.EXCLUDE),
-    RouteMap(methods="*", pattern=r"^/v1/recurrences.*$", mcp_type=MCPType.EXCLUDE),
-    RouteMap(methods="*", pattern=r"^/v1/rules-groups.*$", mcp_type=MCPType.EXCLUDE),
-    RouteMap(methods="*", pattern=r"^/v1/links.*$", mcp_type=MCPType.EXCLUDE),
-    RouteMap(methods="*", pattern=r"^/v1/data.*$", mcp_type=MCPType.EXCLUDE),
-    RouteMap(methods="*", pattern=r"^/v1/currencies.*$", mcp_type=MCPType.EXCLUDE),
-    RouteMap(methods="*", pattern=r"^/v1/exchange-rates.*$", mcp_type=MCPType.EXCLUDE),
+    RouteMap(methods="*", pattern=r"^/v1/about.*", mcp_type=MCPType.EXCLUDE),
+    RouteMap(methods="*", pattern=r"^/v1/autocomplete.*", mcp_type=MCPType.EXCLUDE),
+    RouteMap(methods="*", pattern=r"^/v1/configuration.*", mcp_type=MCPType.EXCLUDE),
+    RouteMap(methods="*", pattern=r"^/v1/preferences.*", mcp_type=MCPType.EXCLUDE),
+    RouteMap(methods="*", pattern=r"^/v1/webhooks.*", mcp_type=MCPType.EXCLUDE),
+    RouteMap(methods="*", pattern=r"^/v1/user-groups.*", mcp_type=MCPType.EXCLUDE),
+    RouteMap(methods="*", pattern=r"^/v1/users.*", mcp_type=MCPType.EXCLUDE),
+    RouteMap(methods="*", pattern=r"^/v1/tags.*", mcp_type=MCPType.EXCLUDE),
+    RouteMap(methods="*", pattern=r"^/v1/search.*", mcp_type=MCPType.EXCLUDE),
+    RouteMap(methods="*", pattern=r"^/v1/rules.*", mcp_type=MCPType.EXCLUDE),
+    RouteMap(methods="*", pattern=r"^/v1/recurrences.*", mcp_type=MCPType.EXCLUDE),
+    RouteMap(methods="*", pattern=r"^/v1/rules-groups.*", mcp_type=MCPType.EXCLUDE),
+    RouteMap(methods="*", pattern=r"^/v1/links.*", mcp_type=MCPType.EXCLUDE),
+    RouteMap(methods="*", pattern=r"^/v1/data.*", mcp_type=MCPType.EXCLUDE),
+    RouteMap(methods="*", pattern=r"^/v1/currencies.*", mcp_type=MCPType.EXCLUDE),
+    RouteMap(methods="*", pattern=r"^/v1/exchange-rates.*", mcp_type=MCPType.EXCLUDE),
     RouteMap(
         methods=["GET"], pattern=r"^/v1/summary/basic$", mcp_type=MCPType.RESOURCE
     ),
@@ -73,7 +76,12 @@ mcp = FastMCP.from_openapi(
     client=client,
     route_maps=semantic_maps,
 )
-
+@mcp.custom_route("/health", methods=["GET"])
+async def health_check(request):
+    """
+    Health check endpoint to verify the server is running.
+    """
+    return  JSONResponse({"status": "ok", "service": "Firefly III MCP"})
 
 @mcp.prompt
 def get_account_balance_prompt(account_name: str) -> str:
@@ -90,10 +98,4 @@ def summarize_spending_by_category_prompt(start_date: str, end_date: str) -> str
     """
     return f"Please provide a summary of my spending by category from {start_date} to {end_date}."
 
-
-async def main():
-    await mcp.run_async(transport="streamable-http", log_level="debug", host="0.0.0.0")
-
-
-if __name__ == "__main__":
-    asyncio.run(main())
+app = mcp.http_app()
